@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Archivos extends Model
+class Archivospublic extends Model
 {
-    protected $table = 'DAMPLUSarchivosterreno';
+    protected $table = 'DAMPLUSarchivos';
     protected $primaryKey = 'id';
 
     protected $fillable = [

@@ -14,9 +14,15 @@ use Excel;
 use App\DAMPLUSterreno;
 use App\Imports\ArchivosImport;
 use App\Imports;
+use App\Archivospublic;
 use Illuminate\Support\Facades\Input;
 class ArchivosController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +32,7 @@ class ArchivosController extends Controller
     {
 
         
-        $descargar = DB::table('descargas')->orderBy('id', 'DESC')->paginate(6);
+        $descargar = DB::table('DAMPLUSarchivosterreno')->orderBy('id', 'DESC')->paginate(6);
         return view('archivos.index',compact('descargar'));
     }
 
@@ -42,6 +48,15 @@ class ArchivosController extends Controller
         return view('archivos.create');
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createpublic()
+    {
+        return view('archivospublic.create');
+    }
  
 
     /**
@@ -82,6 +97,7 @@ class ArchivosController extends Controller
         return redirect()->route('archivos', $archivos->id)
         ->with('info', 'Archivo Guardada con Éxito');
     }
+    
 
 
 

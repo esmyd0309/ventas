@@ -94,24 +94,34 @@ Route::get('sac', 'SacController@index')->name('sac');
  */
 
 
-
+/**ARCHIVOS PARA TERRENO*/
 Route::resource('archivos', 'ArchivosController');
 Route::get('/archivos/show', 'ArchivosController@show')->name('cliente');
 Route::get('/archivos', 'ArchivosController@index')->name('archivos');
 Route::get('/archivos/de/{id}', 'ArchivosController@descargar')->name('archivos.descargas');
 
+/**ARCHIVOS PUBLICOS*/
 
-Route::get('/data', function(){
-    return view('dependent.data');
-});
+Route::post('archivospublic/store', 'ArchivospublicController@store')->name('archivospublic.store');
+
+Route::get('createpublic', 'ArchivosController@createpublic')->name('archivos.createpublic');
+
+Route::get('/archivospublic', 'ArchivospublicController@index')->name('archivospublic');
+Route::get('/archivospublic/de/{id}', 'ArchivospublicController@descargar')->name('archivospublic.descargas');
 
 
+
+
+/**CARTERA DE COBRANZA*/
 Route::get('/clientes', 'ClienteController@index')->name('clientess');
 Route::resource('/cliente', 'ClienteController');
 
+
+/**SISTEMAS DEL IESS*/
+Route::get('/data', function(){
+    return view('dependent.data');
+});
 Route::get('/dependent', 'DependentController@index')->name('dependents');
-
-
 Route::resource('/dependents', 'DependentController');
 
 Route::get('/logpredictivo', 'LogpredictivoController@index')->name('logredictivos');
