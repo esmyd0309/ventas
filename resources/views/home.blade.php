@@ -31,14 +31,11 @@
                             <a class="navbar-brand" href="{{ url('http://192.168.1.76/vicidial/welcome.php') }}"> <img src="http://192.168.1.107/ventas/public/img/predictivo.png" width="100" height="100" class="rounded-pill" title="PREDICTIVO: SISTEMA DE MARCACIÓN"></a><p>Predictivo</p>
                         </div>
                         <div class="col-sm">
-                          
+                        <a class="navbar-brand " align="justify " href="{{ route('procesos.index') }}"> <img src="http://192.168.1.107/ventas/public/img/PROCESO.png" width="70" height="70" class="rounded-pill "  title="Descargas de archivos"></a><p>PROCESOS</p>
                         </div>
                         <div class="col-sm">
-                           
+                            <a class="navbar-brand " align="justify " href="{{ route('archivospublic') }}"> <img src="http://192.168.1.107/ventas/public/img/descarga.png" width="70" height="70" class="rounded-pill "  title="Descargas de archivos"></a><p>ARCHIVOS</p>
                         </div>
-                        
-                    </div>
-                   
                 </div>
             </div>
         </div>

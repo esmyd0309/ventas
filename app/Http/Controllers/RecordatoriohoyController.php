@@ -94,7 +94,7 @@ class RecordatoriohoyController extends Controller
             INNER JOIN (
                 SELECT Identificacion,TelefonoPersona
                 FROM tbCampañaPersonaTelefono
-                where SUBSTRING(TelefonoPersona,1,2)='09' or SUBSTRING(TelefonoPersona,1,2)='9' 
+                where SUBSTRING(TelefonoPersona,1,2)='09' or SUBSTRING(TelefonoPersona,1,2)='9' and IdRespuesta in ('14' , '26', '27', '29' ,'42','36','24','39','40','52','57')
                 
             ) AS tf
             ON DAMPLUSexcelcompromisosmanana.cedula = tf.Identificacion and  DAMPLUSexcelcompromisosmanana.telefonowhat='' 

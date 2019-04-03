@@ -87,11 +87,11 @@ class ArchivosController extends Controller
         $archivos->save();
         Excel::import(new ArchivosImport,request()->file('file'));
 
-        $proceso = DB::connection('sqlsrv')->statement
+       /* $proceso = DB::connection('sqlsrv')->statement
         ("
         EXEC TERRENO;
         ");
-
+*/
         
 
         return redirect()->route('archivos', $archivos->id)

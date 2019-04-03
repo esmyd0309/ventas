@@ -39,38 +39,38 @@
             <div class="card">
             
                 <div class="alert alert-info" class="card-header"  >Listado de Clientes</div>
+                <div class="table-responsive">  
+                    <table>
+                        <thead class="thead-dark">
+                            <th class='text-center' class="thead-dark">Nombre De la Empresa</th>
+                        
+                            <th class='text-center' class="thead-dark">Cargo</th>
+                            <th class='text-center' class="thead-dark">Telf Trabajo</th>
+                        
+                            <th  class='text-center' class="thead-dark">Cedula</th>
+                            <th class='text-center' class="thead-dark">Nombres</th>
+                            <th  class='text-center' class="thead-dark">Action</th>
+                        </thead>
+                    
+                            
+                            @foreach ($dependents as $dependentss)
+                            <tr >
+                                <td class="text-center"><small >{{ $dependentss->nombreempresa }}</small></td>
+                                
+                                <td class='text-center '><small>{{ $dependentss->cargo }}</small></td>
+                                <td class='text-center'><small>{{ $dependentss->telefonotrabajo }}</small></td>
+                                
+                                <td class='text-center'><small>{{ $dependentss->cedula }}</small></td> 
+                                <td class='text-center'><small>{{ $dependentss->nombres }}</small></td>
+                                
+                                <td class='text-center'><small><a href="{{ route('dependents.show', $dependentss->id) }}" class="btn btn-success">Detalles</a>
+                            </tr>
+                            @endforeach
+                        
                 
-             <table>
-                <thead class="thead-dark">
-                <th class='text-center' class="thead-dark">Nombre De la Empresa</th>
-               
-                <th class='text-center' class="thead-dark">Cargo</th>
-                <th class='text-center' class="thead-dark">Telf Trabajo</th>
-               
-                <th  class='text-center' class="thead-dark">Cedula</th>
-                <th class='text-center' class="thead-dark">Nombres</th>
-                <th  class='text-center' class="thead-dark">Action</th>
-                </thead>
-                <tbody>
-                
-                @foreach ($dependents as $dependentss)
-                <tr >
-                <td class='text-center'><small class="text-muted">{{ $dependentss->nombreempresa }}</small></td>
-                
-                <td class='text-center'><small class="text-muted">{{ $dependentss->cargo }}</small></td>
-                <td class='text-center'><small class="text-muted">{{ $dependentss->telefonotrabajo }}</small></td>
-                
-                <td class='text-center'><small class="text-muted">{{ $dependentss->cedula }}</small></td> 
-                <td class='text-center'><small class="text-muted">{{ $dependentss->nombres }}</small></td>
-                
-                <td class='text-center'><small class="text-muted"><a href="{{ route('dependents.show', $dependentss->id) }}" class="btn btn-success">Detalles</a>
-                </tr>
-                @endforeach
-                </tbody> 
-          
-             </table>
-
-             {!! $dependents->render() !!}
+                    </table>
+                </div>  
+                {!! $dependents->render() !!}
                
                 </div>
             </div>

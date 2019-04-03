@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Archivospublic extends Model
 {
     protected $table = 'DAMPLUSarchivos';
+    
+    protected $connection = 'sqlsrv';
     protected $primaryKey = 'id';
 
     protected $fillable = [

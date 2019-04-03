@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Incumplido;
-use App\Campana;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -13,7 +13,7 @@ use App\Exports\IncumplidoExport;
 
 
 
-class IncumplidosController extends Controller
+class ProcesosController extends Controller
 {
 
     
@@ -29,43 +29,10 @@ class IncumplidosController extends Controller
     public function index(Request $request)
     {
        
-        $incumplido=Incumplido::orderBy('cedula', 'DESC')
-  
-        ->paginate(15);
-
-        $campana=Campana::all();
-      
-  
-        return view('incumplido.index', compact('incumplido'));
+        return view('prcesos.index');
     }
 
-    public function export(Request $request) 
-    {
-        $desde =  $request->fechadesde;
-        $hasta =  $request->fechahasta;
-        $desde = new DateTime($desde);
-        $hasta = new DateTime($hasta);
-
-        $d= $desde->format('Y-m-d H:i:s');
-        $h= $hasta->format('Y-m-d H:i:s');
-        $ds= $desde->format('d-m-y');
-        $hs= $hasta->format('d-m-y');
-
-
-     $date = new DateTime(); 
-    
-        
-        $incumplido=Incumplido::all();
-
-        return Excel::download(new IncumplidoExport, 'Incumplidos  ' . $ds.' Al  ' .$hs .'.xlsx');
-      /* Excel::download('Incumplido', function($incumplido)  {//creamos el archivo
-            $excel->sheet('Incumplido',function($incumplido) {//hoja
-
-                $sheet->fromArray($incumplido);
-            });
-       })->export('xls');*/
-
-    }
+   
 
     public function pagovero()
     {
@@ -127,15 +94,7 @@ class IncumplidosController extends Controller
      ->with('info', ' Este proceso se Ejecuto con  Éxito');
 //dd($pagos);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function inicio()
-    {
-        return view('incumplido.inicio');
-    }
+  
     /**
      * Show the form for creating a new resource.
      *

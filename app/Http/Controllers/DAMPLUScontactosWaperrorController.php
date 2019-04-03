@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\DAMPLUScontactosWap;
+use App\DAMPLUScontactosWaperror;
 use Illuminate\Http\Request;
 use DB;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
-class DAMPLUScontactosWapController extends Controller
+class DAMPLUScontactosWaperrorController extends Controller
 {
      /**
      * Display a listing of the resource.
@@ -18,11 +18,11 @@ class DAMPLUScontactosWapController extends Controller
     public function index(Request $request)
     {
 
-        $nombres = $request->get('nombres');
+        
         $numero = $request->get('numero');
         $cedula = $request->get('cedula');
-        $cliente=DAMPLUScontactosWap::orderBy('id', 'DESC')
-        ->nombres($nombres)
+        $cliente=DAMPLUScontactosWaperror::orderBy('id', 'DESC')
+      
         ->numero($numero)
         ->cedula($cedula)
         ->paginate(15);
@@ -30,7 +30,7 @@ class DAMPLUScontactosWapController extends Controller
  
       
   
-        return view('contacto.create', compact('cliente'));
+        return view('contacto.error', compact('cliente'));
       
     }
 
@@ -47,13 +47,13 @@ class DAMPLUScontactosWapController extends Controller
         $nombres = $request->get('nombres');
         $numero = $request->get('numero');
         $cedula = $request->get('cedula');
-        $cliente=DAMPLUScontactosWap::orderBy('id', 'DESC')
+        $cliente=DAMPLUScontactosWaperror::orderBy('id', 'DESC')
         ->nombres($nombres)
         ->numero($numero)
         ->cedula($cedula)
         ->paginate(5);
 
-        return view('contacto.create', compact('cliente'));
+        return view('contacto.error', compact('cliente'));
     }
 
     /**
@@ -67,7 +67,7 @@ class DAMPLUScontactosWapController extends Controller
         $nombres = $request->get('nombres');
         $numero = $request->get('numero');
         $cedula = $request->get('cedula');
-        $cliente=DAMPLUScontactosWap::orderBy('id', 'DESC')
+        $cliente=DAMPLUScontactosWaperror::orderBy('id', 'DESC')
         ->nombres($nombres)
         ->numero($numero)
         ->cedula($cedula)
@@ -102,7 +102,7 @@ class DAMPLUScontactosWapController extends Controller
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
  
-        $contacto = new DAMPLUScontactosWap;
+        $contacto = new DAMPLUScontactosWaperror;
         $contacto->cedula           =   $request->cedula; 
         $contacto->nombres          =   $request->nombres; 
         $contacto->numero           =   $request->numero; 
@@ -139,7 +139,7 @@ class DAMPLUScontactosWapController extends Controller
       
         
 
-        $contacto = new DAMPLUScontactosWap;
+        $contacto = new DAMPLUScontactosWaperror;
         $contacto->cedula           =   $request->cedula; 
         $contacto->nombres          =   $request->nombres; 
         $contacto->numero           =   $request->numero; 
@@ -160,10 +160,10 @@ class DAMPLUScontactosWapController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\DAMPLUScontactosWap  $dAMPLUScontactosWap
+     * @param  \App\DAMPLUScontactosWaperror  $dAMPLUScontactosWaperror
      * @return \Illuminate\Http\Response
      */
-    public function show(DAMPLUScontactosWap $dAMPLUScontactosWap)
+    public function show(DAMPLUScontactosWaperror $dAMPLUScontactosWaperror)
     {
         
 
@@ -174,41 +174,33 @@ class DAMPLUScontactosWapController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\DAMPLUScontactosWap  $dAMPLUScontactosWap
+     * @param  \App\DAMPLUScontactosWaperror  $dAMPLUScontactosWaperror
      * @return \Illuminate\Http\Response
      */
-    public function edit( $dAMPLUScontactosWap)
+    public function edit(DAMPLUScontactosWaperror $dAMPLUScontactosWaperror)
     {
-        $dAMPLUScontactosWap=DAMPLUScontactosWap::where('id',$dAMPLUScontactosWap)->first();
-        //dd($dAMPLUScontactosWap);
-        return view('contacto.edit', compact('dAMPLUScontactosWap'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\DAMPLUScontactosWap  $dAMPLUScontactosWap
+     * @param  \App\DAMPLUScontactosWaperror  $dAMPLUScontactosWaperror
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DAMPLUScontactosWap $dAMPLUScontactosWap)
+    public function update(Request $request, DAMPLUScontactosWaperror $dAMPLUScontactosWaperror)
     {
-        dd();
-        $dAMPLUScontactosWap->numero = $request->input('numero');
-  
-        $dAMPLUScontactosWap->update();
-        return redirect()->back()
-            ->with('info', 'Actualizado  con  Éxito');
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\DAMPLUScontactosWap  $dAMPLUScontactosWap
+     * @param  \App\DAMPLUScontactosWaperror  $dAMPLUScontactosWaperror
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DAMPLUScontactosWap $dAMPLUScontactosWap)
+    public function destroy(DAMPLUScontactosWaperror $dAMPLUScontactosWaperror)
     {
         //
     }

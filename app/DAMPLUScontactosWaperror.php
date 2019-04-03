@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DAMPLUScontactosWap extends Model
+class DAMPLUScontactosWaperror extends Model
 {
     
-    public $timestamps = false;
-    protected $table ='DAMPLUScontactosWap';
+    
+    protected $table ='DAMPLUScontactosWaperror';
 
-    protected $fillable = ['cedula', 'nombres', 'numero','sms','email','id'];
+    protected $fillable = ['cedula', 'nombres', 'numero','sms','email'];
 
     public function scopeNombres($query, $nombres)
     {

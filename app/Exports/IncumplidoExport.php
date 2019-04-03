@@ -35,6 +35,7 @@ class IncumplidoExport implements FromCollection , WithHeadings,WithMapping
             "'$ ".$incumplido->cuota,
                  $incumplido->area,
                 $incumplido->tipopagod,
+                $incumplido->IDCC,
            
             
         ];
@@ -54,6 +55,7 @@ class IncumplidoExport implements FromCollection , WithHeadings,WithMapping
             'cuota',
             'area',
             'Tipo_pago',
+            'CARTERA',
         ];
     }
 }

@@ -24,8 +24,8 @@ class ArchivospublicController extends Controller
     public function index()
     {
 
-        
-        $descargar = DB::table('DAMPLUSarchivos')->orderBy('id', 'DESC')->paginate(6);
+        $descargar = Archivospublic::orderBy('id', 'DESC')->paginate(6);
+      
         return view('archivospublic.index',compact('descargar'));
     }
 

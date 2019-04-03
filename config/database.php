@@ -94,6 +94,22 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'asterisk' => [
+            'driver' => 'mysql',
+            'host' => env('predictivo75_HOST', '192.168.1.75'),
+            'port' => env('predictivo75_PORT', '3306'),
+            'database' => env('predictivo75_DATABASE', 'forge'),
+            'username' => env('predictivo75_USERNAME', 'forge'),
+            'password' => env('predictivo75_PASSWORD', ''),
+            'unix_socket' => env('predictivo75_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
+
        /* 'comments'  => [
             'driver'     => 'mysql',
             'host'       => env('COMMENTS_HOST', '192.168.1.3'),
