@@ -8,8 +8,8 @@ class Incumplido extends Model
 {
  
     public $timestamps = false;
-    protected $table ='DAMPLUSexcelincumplidos';
     //protected $table ='DAMPLUSreporteincumplido';
+    protected $table ='DAMPLUSreporteincumplido';
     
       
   

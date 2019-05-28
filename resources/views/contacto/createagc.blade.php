@@ -67,7 +67,7 @@
         
   
     
-      <div class="row justify-content-center">
+     
 
     {!! Form::close() !!}
   
@@ -104,7 +104,8 @@
             <th  class='text-center'>Teléfono</th>
             <th  class='text-center'>Teléfono SMS</th>
             <th  class='text-center'>Email</th>
-           
+            <th  class='text-center'>Creado</th>
+            <th  class='text-center'>Actualizado</th>
         </thead>
         <tbody>
           
@@ -117,7 +118,11 @@
                 <td class='text-center'><small class="text-muted">{{ $clientes->numero }}</small></td> 
                 <td class='text-center'><small class="text-muted">{{ $clientes->sms }}</small></td> 
                 <td class='text-center'><small class="text-muted">{{ $clientes->email }}</small></td>  
+                <td class='text-center'><small class="text-muted">{{ $clientes->created_at }}</small></td>  
+                <td class='text-center'><small class="text-muted">{{ $clientes->updated_at }}</small></td>  
                 <td class='text-center'> <a href="{{ route('createagc.edit', $clientes->id) }}" class="btn btn-primary btn-sm btn-block">Actualizar</a></td>
+                
+            
             </tr>
           
           
@@ -134,9 +139,7 @@
            
             </div>
         </div>
-        <a class="navbar-brand" href="{{ route('sac') }}" style="background-color: #d7f3e3;">
-                 Info-Contacto
-                </a>
+       
     </div>
    
 </div>

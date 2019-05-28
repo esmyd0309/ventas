@@ -95,6 +95,26 @@ Route::put('/createagc/{id}/update', 'DAMPLUScontactosWapController@update')->na
 Route::resource('sac', 'SacController');
 Route::get('sac', 'SacController@index')->name('sac');
 
+/**vista de las gestiones */
+Route::get('gestionesac', 'SacController@gestionesac')->name('gestionesac');
+/**Envío de Datos */
+Route::get('gestione', 'SacController@gestiones')->name('gestione');
+/**Recepcion de Pago */
+Route::get('gestiones2', 'SacController@gestiones2')->name('gestiones2');
+/**negociacion de whatsapp */
+Route::get('gestiones3', 'SacController@gestiones3')->name('gestiones3');
+/** gestiones de los agenrtes*/
+Route::get('agentes', 'SacController@agente')->name('agentes');
+/**certificado de no adeudo */
+Route::get('gestiones5', 'SacController@gestiones5')->name('gestiones5');
+/**cantidad de gestiones del dia SAC WHATSAAP */
+Route::get('resul', 'SacController@resul')->name('resul');
+Route::get('resuldetalle', 'SacController@resuldetalle')->name('resuldetalle');
+
+Route::get('xxx', 'SacController@xxx')->name('xxx');
+
+Route::get('carteras', 'SacController@carteras')->name('carteras');
+Route::get('/carteras/indi', 'SacController@carterasindi')->name('carteras.indi');
 /***
  * sistema de terreno, subir archivo
  */
@@ -158,3 +178,9 @@ Route::resource('asignacionpuesto', 'A_DAMPLUSasignacionpuestoController');
 Route::get('/asignacionpuesto/show', 'A_DAMPLUSasignacionpuestoController@show')->name('cliente');
 Route::get('/asignacionpuesto', 'A_DAMPLUSasignacionpuestoController@index')->name('asignacionpuesto');
 Route::get('/asignacionpuesto/de/{id}', 'A_DAMPLUSasignacionpuestoController@descargar')->name('asignacionpuesto.descargas');
+
+/**gesstiones de clientes cobranza */
+Route::get('DAMPLUSclientegestion', 'DAMPLUSclientegestionController@index')->name('DAMPLUSclientegestion');
+Route::get('/DAMPLUSclientegestion/fe/{id}', 'DAMPLUSclientegestionController@edit')->name('DAMPLUSclientegestion.edit');
+Route::put('/DAMPLUSclientegestion/{id}/update', 'DAMPLUSclientegestionController@update')->name('DAMPLUSclientegestion.update');
+Route::get('/DAMPLUSclientegestion/de/{id}', 'DAMPLUSclientegestionController@show')->name('DAMPLUSclientegestion.show');

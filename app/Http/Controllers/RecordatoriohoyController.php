@@ -38,7 +38,7 @@ class RecordatoriohoyController extends Controller
         $hasta =  $request->fechahasta;
         $desde = new DateTime($desde);
         $hasta = new DateTime($hasta);
-
+//dd($request);
         $d= $desde->format('Y-m-d H:i:s');
         $h= $hasta->format('Y-m-d H:i:s');
         $ds= $desde->format('Y-m-d');
@@ -52,123 +52,141 @@ class RecordatoriohoyController extends Controller
   
      USE SII_COBRANZA;
   
-            truncate  table  DAMPLUSexcelcompromisosmanana
+     truncate    table  DAMPLUSexcelcompromisosmanana
+     insert into DAMPLUSexcelcompromisosmanana
+  SELECT Identificacionc as cedula,'' as telefono, CONVERT(DATE,COMPROMISO_CUMPLIR)  as fecha,CAST (VALORPROMESA AS DECIMAL(10,2)) as cuota,'' as tipopago,IDC as campana_id,AREA,Nombres,producto,CARTERA,'' AS tipopagod,''
+     FROM REPORT_CARTERA 
+         where     GEST20='COMPROMISO' 
+                   --  AND COMPROMISO_CUMPLIR LIKE 'ABR 16%'
+                   --  OR COMPROMISO_CUMPLIR LIKE 'ABR 14%'
+                   --  OR COMPROMISO_CUMPLIR LIKE 'ABR 15%'
+                 and CONVERT (datetime, COMPROMISO_CUMPLIR, 103) >= '$dxx'  
+                  and CONVERT (datetime, COMPROMISO_CUMPLIR, 103) <= '$hxx' 
 
-            insert into DAMPLUSexcelcompromisosmanana
+                 delete from DAMPLUSexcelcompromisosmanana where cedula in (SELECT Identificacion FROM tbRegistroLlamada where IdRespuesta  in ('62','63') and FecRegistro > convert(date,getdate()))
+                
+                 UPDATE DAMPLUSexcelcompromisosmanana
+                 SET DAMPLUSexcelcompromisosmanana.tipopago = tf.IdFormaPagoPromesa
+                 FROM DAMPLUSexcelcompromisosmanana
+                 INNER JOIN (
+                     SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                     FROM tbRegistroLlamada WHERE IdRespuesta IN ('14') and IdFormaPagoPromesa!=''
+                 ) AS tf
+                 ON DAMPLUSexcelcompromisosmanana.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion 
 
-            SELECT Identificacion as cedula,TelefonoPersona as telefono,convert(date ,PromesaPago) as fecha,CAST (PromesaMontoPago AS DECIMAL(10,2)) as cuota,IdFormaPagoPromesa as tipopago,IdCampaña as campana_id,'','','','','','' 
-            FROM tbRegistroLlamada where IdRespuesta in('14' , '26', '27', '29' ,'42','36') 
-            and PromesaPago >= '$dxx'  
-            and PromesaPago <= '$hxx'  
-          
+				  UPDATE DAMPLUSexcelcompromisosmanana
+                 SET DAMPLUSexcelcompromisosmanana.tipopago = tf.IdFormaPagoPromesa
+                 FROM DAMPLUSexcelcompromisosmanana
+                 INNER JOIN (
+                     SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                     FROM tbRegistroLlamada WHERE IdRespuesta IN ('26') and IdFormaPagoPromesa!=''
+                 ) AS tf
+                 ON DAMPLUSexcelcompromisosmanana.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+				  UPDATE DAMPLUSexcelcompromisosmanana
+                 SET DAMPLUSexcelcompromisosmanana.tipopago = tf.IdFormaPagoPromesa
+                 FROM DAMPLUSexcelcompromisosmanana
+                 INNER JOIN (
+                     SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                     FROM tbRegistroLlamada WHERE IdRespuesta IN ('27')and IdFormaPagoPromesa!=''
+                 ) AS tf
+                 ON DAMPLUSexcelcompromisosmanana.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+				 	  UPDATE DAMPLUSexcelcompromisosmanana
+                 SET DAMPLUSexcelcompromisosmanana.tipopago = tf.IdFormaPagoPromesa
+                 FROM DAMPLUSexcelcompromisosmanana
+                 INNER JOIN (
+                     SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                     FROM tbRegistroLlamada WHERE IdRespuesta IN ('29') and IdFormaPagoPromesa!=''
+                 ) AS tf
+                 ON DAMPLUSexcelcompromisosmanana.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+
+
+				 	  UPDATE DAMPLUSexcelcompromisosmanana
+                 SET DAMPLUSexcelcompromisosmanana.tipopago = tf.IdFormaPagoPromesa
+                 FROM DAMPLUSexcelcompromisosmanana
+                 INNER JOIN (
+                     SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                     FROM tbRegistroLlamada WHERE IdRespuesta IN ('42') and IdFormaPagoPromesa!=''
+                 ) AS tf
+                 ON DAMPLUSexcelcompromisosmanana.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+				 	 	  UPDATE DAMPLUSexcelcompromisosmanana
+                 SET DAMPLUSexcelcompromisosmanana.tipopago = tf.IdFormaPagoPromesa
+                 FROM DAMPLUSexcelcompromisosmanana
+                 INNER JOIN (
+                     SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                     FROM tbRegistroLlamada WHERE IdRespuesta IN ('16') and IdFormaPagoPromesa!=''
+                 ) AS tf
+                 ON DAMPLUSexcelcompromisosmanana.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+
+                  UPDATE DAMPLUSexcelcompromisosmanana
+                 SET DAMPLUSexcelcompromisosmanana.tipopagod = tf.Descripcion
+                 FROM DAMPLUSexcelcompromisosmanana
+                 INNER JOIN (
+                     SELECT IdValorDetalle,Descripcion
+                     FROM tbValorDetalle
+                     where IdValor=71
+                     
+                 ) AS tf
+                 ON DAMPLUSexcelcompromisosmanana.tipopago = tf.IdValorDetalle
+
+
+
+
+                 TRUNCATE TABLE DAMPLUScontactosWapreportes
+                 INSERT INTO DAMPLUScontactosWapreportes
+                 SELECT cedula,Stuff(numero, 1, 4, '') AS numero
+                      FROM DAMPLUScontactosWap where SUBSTRING(numero,1,4)='+593' 
+                     AND numero IS NOT NULL	ORDER BY numero DESC
+     
+                 update DAMPLUScontactosWapreportes set  numero=Stuff(numero, 1, 0, '0') 
+                      FROM DAMPLUScontactosWapreportes where SUBSTRING(numero,1,1)='9' AND numero!='999999999' and numero !='000000000'
+                         
+
+            /*Agregar telefono de la tabla REPORT_CARTERA cuando esten null*/
             UPDATE DAMPLUSexcelcompromisosmanana
-            SET DAMPLUSexcelcompromisosmanana.tipopagod = tf.Descripcion
+            SET DAMPLUSexcelcompromisosmanana.telefonowhat = tf.TLF_COMPROMISO
             FROM DAMPLUSexcelcompromisosmanana
             INNER JOIN (
-                SELECT IdValorDetalle,Descripcion
-                FROM tbValorDetalle
-                where IdValor=71
+                SELECT Identificacionc,TLF_COMPROMISO
+                FROM REPORT_CARTERA
+                where SUBSTRING(TLF_COMPROMISO,1,2)='09' or SUBSTRING(TLF_COMPROMISO,1,2)='9'
                 
             ) AS tf
-            ON DAMPLUSexcelcompromisosmanana.tipopago = tf.IdValorDetalle
-
-
+            ON DAMPLUSexcelcompromisosmanana.cedula = tf.Identificacionc 
 
             /*agregar telefono wthappp*/
-
             UPDATE DAMPLUSexcelcompromisosmanana
-            SET DAMPLUSexcelcompromisosmanana.telefonowhat = tf.celular_whassap
+            SET DAMPLUSexcelcompromisosmanana.telefonowhat = tf.numero
             FROM DAMPLUSexcelcompromisosmanana
             INNER JOIN (
-                SELECT Identificacion,celular_whassap
-                FROM DAMPLUSwhatsapp
+                SELECT cedula,numero
+                FROM DAMPLUScontactosWap   where SUBSTRING(numero,1,2)='09' or SUBSTRING(numero,1,2)='9'
             ) AS tf
-            ON DAMPLUSexcelcompromisosmanana.cedula = tf.Identificacion 
+            ON DAMPLUSexcelcompromisosmanana.cedula = tf.cedula and  DAMPLUSexcelcompromisosmanana.telefonowhat='' 
 
-
-
-            /*Agregar telefono de la tabla tbcampañaPersonatelefono cuando esten null*/
+            /*Agregar telefono de la tabla predictivo cuando esten null*/
             UPDATE DAMPLUSexcelcompromisosmanana
-            SET DAMPLUSexcelcompromisosmanana.telefonowhat = tf.TelefonoPersona
+            SET DAMPLUSexcelcompromisosmanana.telefonowhat = tf.telefono
             FROM DAMPLUSexcelcompromisosmanana
             INNER JOIN (
-                SELECT Identificacion,TelefonoPersona
-                FROM tbCampañaPersonaTelefono
-                where SUBSTRING(TelefonoPersona,1,2)='09' or SUBSTRING(TelefonoPersona,1,2)='9' and IdRespuesta in ('14' , '26', '27', '29' ,'42','36','24','39','40','52','57')
+                SELECT cedula,telefono
+                FROM telf_predictivo
+                where SUBSTRING(telefono,1,2)='09' or SUBSTRING(telefono,1,2)='9'
                 
             ) AS tf
-            ON DAMPLUSexcelcompromisosmanana.cedula = tf.Identificacion and  DAMPLUSexcelcompromisosmanana.telefonowhat='' 
-
-
-            /*Agregar telefono de la tabla tbdirecciones cuando esten null*/
-            UPDATE DAMPLUSexcelcompromisosmanana
-            SET DAMPLUSexcelcompromisosmanana.telefonowhat = tf.Direccion
-            FROM DAMPLUSexcelcompromisosmanana
-            INNER JOIN (
-                SELECT Identificacion,Direccion
-                FROM tbCampañaPersonaDireccion
-                where SUBSTRING(Direccion,1,2)='09' or SUBSTRING(Direccion,1,2)='9' 
-                
-            ) AS tf
-            ON DAMPLUSexcelcompromisosmanana.cedula = tf.Identificacion and  DAMPLUSexcelcompromisosmanana.telefonowhat='' 
-
-
-            update DAMPLUSexcelcompromisosmanana set telefonowhat=Stuff(telefonowhat, 1, 1, '')  where SUBSTRING(telefonowhat,1,2)='09'--quitar el cero delante
+            ON DAMPLUSexcelcompromisosmanana.cedula = tf.cedula and  DAMPLUSexcelcompromisosmanana.telefonowhat='' 
 
 
 
-            /*agregar productos*/
-            UPDATE DAMPLUSexcelcompromisosmanana
-            SET DAMPLUSexcelcompromisosmanana.producto = tf.Descripcion
-            FROM DAMPLUSexcelcompromisosmanana
-            INNER JOIN (
-                SELECT IdCampaña,Descripcion
-                FROM tbCampaña
-                
-            ) AS tf
-            ON DAMPLUSexcelcompromisosmanana.campana_id = tf.IdCampaña
+           
+       
 
 
-
-            /*agregar nombres*/
-            UPDATE DAMPLUSexcelcompromisosmanana
-            SET DAMPLUSexcelcompromisosmanana.nombres = tf.Nombres
-            FROM DAMPLUSexcelcompromisosmanana
-            INNER JOIN (
-                SELECT Identificacion,Nombres
-                FROM tbCampañaPersona
-                
-            ) AS tf
-            ON DAMPLUSexcelcompromisosmanana.cedula = tf.Identificacion
-
-
-            /*agregar area*/
-            UPDATE DAMPLUSexcelcompromisosmanana
-            SET DAMPLUSexcelcompromisosmanana.area = tf.AREA
-            FROM DAMPLUSexcelcompromisosmanana
-            INNER JOIN (
-                SELECT identificacionc,AREA
-                FROM PANTALLA_CUADRO
-                
-            ) AS tf
-            ON DAMPLUSexcelcompromisosmanana.cedula = tf.identificacionc
-
-            /*RAZON*/
-            UPDATE DAMPLUSexcelcompromisosmanana
-            SET DAMPLUSexcelcompromisosmanana.razon = tf.CARTERA
-            FROM DAMPLUSexcelcompromisosmanana
-            INNER JOIN (
-                SELECT idc,CARTERA
-                FROM clientec 
-                
-            ) AS tf
-            ON cast(DAMPLUSexcelcompromisosmanana.campana_id as nvarchar(10))+cedula = tf.idc
-
-
-            delete from DAMPLUSexcelcompromisosmanana where telefonowhat=''
-
-            delete from DAMPLUSexcelcompromisosmanana where area like '%liquidado%'
-
+          
             update DAMPLUSexcelcompromisosmanana set producto='RM' where producto LIKE '%RM%'
 
 
@@ -203,12 +221,23 @@ class RecordatoriohoyController extends Controller
             select distinct cast(campana_id as nvarchar(10))+cedula AS ID, *  from DAMPLUSexcelcompromisosmanana
 
             delete from DAMPLUSexcelcompromisosmanana1 where cuota=0
-
+            
             delete from DAMPLUSexcelcompromisosmanana1 where ID in ( select idc from clientec where  not p12019 is null and not IdAgentec like '%LIQUIDADO%' )
 
            -- update DAMPLUSexcelcompromisosmanana1 set telefonowhat=Stuff(telefonowhat, 10, 6, '')  where   telefonowhat like '%/%'
-            
+           delete from DAMPLUSexcelcompromisosmanana where cuota=0
+           
            delete from  DAMPLUSexcelcompromisosmanana  where   telefonowhat like '%/%'
+      
+           delete from DAMPLUSexcelcompromisosmanana where telefonowhat=''
+
+           
+         
+
+          
+
+           update DAMPLUSexcelcompromisosmanana set telefonowhat=Stuff(telefonowhat, 1, 1, '')  where SUBSTRING(telefonowhat,1,2)='09'
+           UPDATE DAMPLUSexcelcompromisosmanana set  telefonowhat=Stuff(telefonowhat, 10, 10, '')  where  len(telefonowhat) > 9
            ");
 
      $date = new DateTime(); 

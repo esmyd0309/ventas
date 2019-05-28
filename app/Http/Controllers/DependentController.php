@@ -27,7 +27,7 @@ class DependentController extends Controller
         ->cedula($cedula)
         ->cargo($cargo)
       
-        ->paginate(15);
+        ->paginate(45);
      
         //dd($dependents);
         return view('dependent.index', compact('dependents'));

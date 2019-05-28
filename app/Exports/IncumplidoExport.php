@@ -28,14 +28,16 @@ class IncumplidoExport implements FromCollection , WithHeadings,WithMapping
     {
         return [
             ' +593'.$incumplido->telefonowhat,
-                $incumplido->nombres,
+                $incumplido->Nombres,
             "'".$incumplido->cedula,
                 $incumplido->producto,
             "'".$incumplido->fecha,
             "'$ ".$incumplido->cuota,
-                 $incumplido->area,
+                 $incumplido->AREA,
                 $incumplido->tipopagod,
-                $incumplido->IDCC,
+                $incumplido->razon,
+                $incumplido->cedula,
+                $incumplido->telefonowhat,
            
             
         ];
@@ -56,6 +58,8 @@ class IncumplidoExport implements FromCollection , WithHeadings,WithMapping
             'area',
             'Tipo_pago',
             'CARTERA',
+            'Cedula',
+            'Telefono',
         ];
     }
 }

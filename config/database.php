@@ -72,7 +72,7 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', '192.168.1.206'),
+            'host' => env('DB_HOST', '192.168.1.100'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'sii_cobranza'),
             'username' => env('DB_USERNAME', 'sii'),

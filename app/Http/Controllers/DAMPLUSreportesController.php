@@ -45,7 +45,7 @@ class DAMPLUSreportesController extends Controller
         $h= $hasta->format('Y-m-d H:i:s');
         $ds= $desde->format('d-m-y');
         $hs= $hasta->format('d-m-y');
-
+//dd($request);
      $users = DB::connection('sqlsrv')->statement
      ("
      truncate table  DAMPLUSexcelincumplidos

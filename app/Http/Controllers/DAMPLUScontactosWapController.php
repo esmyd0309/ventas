@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DAMPLUScontactosWap;
 use Illuminate\Http\Request;
 use DB;
-
+use DateTime;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 class DAMPLUScontactosWapController extends Controller
@@ -138,15 +138,16 @@ class DAMPLUScontactosWapController extends Controller
         }
       
         
-
+        $date = new DateTime(); 
+        $d= $date->format('Y-m-d H:i:s');
         $contacto = new DAMPLUScontactosWap;
         $contacto->cedula           =   $request->cedula; 
         $contacto->nombres          =   $request->nombres; 
         $contacto->numero           =   $request->numero; 
         $contacto->sms              =   $request->sms; 
         $contacto->email            =   $request->email; 
-
-      
+        $contacto->created_at            =   $d; 
+        $contacto->updated_at            =   $d; 
             $contacto->save();
             return redirect()->back()
             ->with('info', 'Contacto Guardado Correctamente');
@@ -179,6 +180,7 @@ class DAMPLUScontactosWapController extends Controller
      */
     public function edit( $dAMPLUScontactosWap)
     {
+        
         $dAMPLUScontactosWap=DAMPLUScontactosWap::where('id',$dAMPLUScontactosWap)->first();
         //dd($dAMPLUScontactosWap);
         return view('contacto.edit', compact('dAMPLUScontactosWap'));
@@ -191,12 +193,15 @@ class DAMPLUScontactosWapController extends Controller
      * @param  \App\DAMPLUScontactosWap  $dAMPLUScontactosWap
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DAMPLUScontactosWap $dAMPLUScontactosWap)
+    public function update(Request $request,  $id)
     {
-        dd();
-        $dAMPLUScontactosWap->numero = $request->input('numero');
-  
-        $dAMPLUScontactosWap->update();
+       // dd($dAMPLUScontactosWap);
+       $date = new DateTime(); 
+       $d= $date->format('Y-m-d H:i:s');
+        $user = DAMPLUScontactosWap::where('id',$id)->update(['numero' => $request->input('numero')]);
+        $usexr = DAMPLUScontactosWap::where('id',$id)->update(['updated_at' => $d]);
+      
+      
         return redirect()->back()
             ->with('info', 'Actualizado  con  Éxito');
 

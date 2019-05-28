@@ -135,7 +135,7 @@
             </div>
         </div>
     </div>
-    <center><a  href="{{ route('incumplidos') }}" class="btn btn-success btn-lg active" role="button"> Volver </a></center>
+    <center><a  href="{{ route('home') }}" class="btn btn-success btn-lg active" role="button"> Volver </a></center>
 </div>
 
 <br>

@@ -56,8 +56,9 @@ class DAMPLUSclienteController extends Controller
         $DAMPLUScliente = DAMPLUScliente::where('Identificacion',$DAMPLUScliente)->first();
 
         $campo9 = DAMPLUScliente::select('Campo9')->distinct()->get();
-   
-        return view('DAMPLUScliente.edit', compact('DAMPLUScliente','campo9'));
+        $IdAgente = DAMPLUScliente::select('IdAgente')->distinct()->get();
+        //dd($agente);
+        return view('DAMPLUScliente.edit', compact('DAMPLUScliente','campo9','IdAgente'));
 
 
     }
@@ -71,9 +72,13 @@ class DAMPLUSclienteController extends Controller
      */
     public function update(Request $request,  $DAMPLUScliente)
     {
+        //dd($request);
        
         $gestiontm=DAMPLUScliente::where('Identificacion',$DAMPLUScliente)
         ->update(['Campo9' =>  $request->Campo9]);
+        $gestiontmx=DAMPLUScliente::where('Identificacion',$DAMPLUScliente)
+        ->update(['IdAgente' => $request->IdAgente]);
+        
         return redirect()->back()
         ->with('info', 'Cliente Actualizado Correctamente');
                // 

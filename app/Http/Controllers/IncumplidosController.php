@@ -51,7 +51,166 @@ class IncumplidosController extends Controller
         $ds= $desde->format('d-m-y');
         $hs= $hasta->format('d-m-y');
 
+        $dxx= $desde->format('d-m-y');
+        $hxx= $hasta->format('d-m-y');
+       
+        $users = DB::connection('sqlsrv')->statement
+        ("
+     
+        USE SII_COBRANZA;
+     
+        truncate  table  DAMPLUSreporteincumplido
+        insert into DAMPLUSreporteincumplido
+        SELECT Identificacionc as cedula,'' as telefono,  CONVERT(DATE,COMPROMISO_CUMPLIR) as fecha  ,CAST (VALORPROMESA AS DECIMAL(10,2)) as cuota,'' as tipopago,idc as campana_id,'' as tipopagod,AREA,Nombres,'' as telefonowhat,producto,CARTERA as razon
+                FROM REPORT_CARTERA 
+				where     GEST20='INCUMPLIDO' 
+            and   COMPROMISO_CUMPLIR >= '$dxx'  
+            and   COMPROMISO_CUMPLIR <= '$hxx'
 
+			
+
+            UPDATE DAMPLUSreporteincumplido
+            SET DAMPLUSreporteincumplido.tipopago = tf.IdFormaPagoPromesa
+            FROM DAMPLUSreporteincumplido
+            INNER JOIN (
+                SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                FROM tbRegistroLlamada WHERE IdRespuesta IN ('14') and IdFormaPagoPromesa!=''
+            ) AS tf
+            ON DAMPLUSreporteincumplido.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion 
+
+             UPDATE DAMPLUSreporteincumplido
+            SET DAMPLUSreporteincumplido.tipopago = tf.IdFormaPagoPromesa
+            FROM DAMPLUSreporteincumplido
+            INNER JOIN (
+                SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                FROM tbRegistroLlamada WHERE IdRespuesta IN ('26') and IdFormaPagoPromesa!=''
+            ) AS tf
+            ON DAMPLUSreporteincumplido.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+             UPDATE DAMPLUSreporteincumplido
+            SET DAMPLUSreporteincumplido.tipopago = tf.IdFormaPagoPromesa
+            FROM DAMPLUSreporteincumplido
+            INNER JOIN (
+                SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                FROM tbRegistroLlamada WHERE IdRespuesta IN ('27')and IdFormaPagoPromesa!=''
+            ) AS tf
+            ON DAMPLUSreporteincumplido.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+                  UPDATE DAMPLUSreporteincumplido
+            SET DAMPLUSreporteincumplido.tipopago = tf.IdFormaPagoPromesa
+            FROM DAMPLUSreporteincumplido
+            INNER JOIN (
+                SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                FROM tbRegistroLlamada WHERE IdRespuesta IN ('29') and IdFormaPagoPromesa!=''
+            ) AS tf
+            ON DAMPLUSreporteincumplido.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+
+
+             UPDATE DAMPLUSreporteincumplido
+            SET DAMPLUSreporteincumplido.tipopago = tf.IdFormaPagoPromesa
+            FROM DAMPLUSreporteincumplido
+            INNER JOIN (
+                SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                FROM tbRegistroLlamada WHERE IdRespuesta IN ('42') and IdFormaPagoPromesa!=''
+            ) AS tf
+            ON DAMPLUSreporteincumplido.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+            UPDATE DAMPLUSreporteincumplido
+            SET DAMPLUSreporteincumplido.tipopago = tf.IdFormaPagoPromesa
+            FROM DAMPLUSreporteincumplido
+            INNER JOIN (
+                SELECT IdCampaña,Identificacion,IdFormaPagoPromesa
+                FROM tbRegistroLlamada WHERE IdRespuesta IN ('16') and IdFormaPagoPromesa!=''
+            ) AS tf
+            ON DAMPLUSreporteincumplido.campana_id   = cast(tf.IdCampaña as nvarchar(10))+Identificacion AND tipopago=''
+
+
+             UPDATE DAMPLUSreporteincumplido
+            SET DAMPLUSreporteincumplido.tipopagod = tf.Descripcion
+            FROM DAMPLUSreporteincumplido
+            INNER JOIN (
+                SELECT IdValorDetalle,Descripcion
+                FROM tbValorDetalle
+                where IdValor=71
+                
+            ) AS tf
+            ON DAMPLUSreporteincumplido.tipopago = tf.IdValorDetalle
+
+            
+            UPDATE DAMPLUSreporteincumplido
+            SET DAMPLUSreporteincumplido.telefonowhat = tf.TLF_COMPROMISO
+            FROM DAMPLUSreporteincumplido
+            INNER JOIN (
+                SELECT Identificacionc,TLF_COMPROMISO
+                FROM REPORT_CARTERA
+                where SUBSTRING(TLF_COMPROMISO,1,2)='09' or SUBSTRING(TLF_COMPROMISO,1,2)='9'
+                
+            ) AS tf
+            ON DAMPLUSreporteincumplido.cedula = tf.Identificacionc 
+
+
+
+
+            TRUNCATE TABLE DAMPLUScontactosWapreportes
+            INSERT INTO DAMPLUScontactosWapreportes
+            SELECT cedula,Stuff(numero, 1, 4, '') AS numero
+                 FROM DAMPLUScontactosWap where SUBSTRING(numero,1,4)='+593' 
+                AND numero IS NOT NULL	ORDER BY numero DESC
+
+            update DAMPLUScontactosWapreportes set  numero=Stuff(numero, 1, 0, '0') 
+                 FROM DAMPLUScontactosWapreportes where SUBSTRING(numero,1,1)='9' AND numero!='999999999' and numero !='000000000'
+                    
+
+
+       /*agregar telefono wthappp*/
+       UPDATE DAMPLUSreporteincumplido
+       SET DAMPLUSreporteincumplido.telefonowhat = tf.numero
+       FROM DAMPLUSreporteincumplido
+       INNER JOIN (
+           SELECT cedula,numero
+           FROM DAMPLUScontactosWap   where SUBSTRING(numero,1,2)='09' or SUBSTRING(numero,1,2)='9'
+       ) AS tf
+       ON DAMPLUSreporteincumplido.cedula = tf.cedula and  DAMPLUSreporteincumplido.telefonowhat='' 
+
+
+        
+          update DAMPLUSreporteincumplido set producto='RM' where producto LIKE '%RM%'
+
+
+          update DAMPLUSreporteincumplido set producto='Etafashion' where producto LIKE '%ETA%'
+
+
+          update DAMPLUSreporteincumplido set producto='Deprati' where producto LIKE '%DP%'
+
+
+         
+
+          delete from DAMPLUSreporteincumplido where cuota=0
+
+          
+         delete from  DAMPLUSreporteincumplido  where   telefonowhat like '%/%'
+        
+         delete from DAMPLUSreporteincumplido where telefonowhat=''
+
+         UPDATE DAMPLUSreporteincumplido
+         SET DAMPLUSreporteincumplido.telefonowhat = tf.telefono
+         FROM DAMPLUSreporteincumplido
+         INNER JOIN (
+             SELECT cedula,telefono
+             FROM telf_predictivo
+             where SUBSTRING(telefono,1,2)='09' or SUBSTRING(telefono,1,2)='9'
+             
+         ) AS tf
+         ON DAMPLUSreporteincumplido.cedula = tf.cedula and  DAMPLUSreporteincumplido.telefonowhat='' 
+
+         
+         update DAMPLUSreporteincumplido set telefonowhat=Stuff(telefonowhat, 1, 1, '')  where SUBSTRING(telefonowhat,1,2)='09'
+        
+         UPDATE DAMPLUSreporteincumplido set  telefonowhat=Stuff(telefonowhat, 10, 10, '')  where  len(telefonowhat) > 9
+
+			
+              ");
      $date = new DateTime(); 
     
         

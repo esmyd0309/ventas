@@ -153,7 +153,7 @@
             
                
 
-                <a href="{{ route('incumplidos') }}" class="btn btn-sm btn-success">Volver</a>
+                <a href="{{ route('home') }}" class="btn btn-sm btn-success">Volver</a>
          
                 </center>
 

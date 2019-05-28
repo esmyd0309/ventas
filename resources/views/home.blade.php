@@ -16,7 +16,7 @@
                             <a class="navbar-brand" href="{{ route('sac') }}"> <img src="http://192.168.1.107/ventas/public/img/contactos.png" width="100" height="100" class="rounded-pill"></a><p>Detalle Telefonos</p>
                         </div>
                         <div class="col-sm">
-                            <a class="navbar-brand" href="{{ route('clientes') }}"> <img src="http://192.168.1.107/ventas/public/img/iess.png" width="100" height="100" class="rounded-pill" title="Datos IESS: Aplicacion que permite consultar datos de clientes y algunas referencias de contactos. Tiene conexión con el 192.168.1.7 BD (PREDICTIVO) TABLA (DAMPLUSdependents) "></a><p>Datos del Iess</p>
+                            <a class="navbar-brand" href="{{ route('dependents') }}"> <img src="http://192.168.1.107/ventas/public/img/iess.png" width="100" height="100" class="rounded-pill" title="Datos IESS: Aplicacion que permite consultar datos de clientes y algunas referencias de contactos. Tiene conexión con el 192.168.1.7 BD (PREDICTIVO) TABLA (DAMPLUSdependents) "></a><p>Datos del Iess</p>
                         </div>
                         <div class="col-sm">
                             <a class="navbar-brand" href="{{ route('incumplidos') }}"> <img src="http://192.168.1.107/ventas/public/img/sac.png" width="100" height="100" class="rounded-pill"></a><CENTER><p>SAC</p></CENTER> 

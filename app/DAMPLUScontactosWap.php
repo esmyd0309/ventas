@@ -10,7 +10,7 @@ class DAMPLUScontactosWap extends Model
     public $timestamps = false;
     protected $table ='DAMPLUScontactosWap';
 
-    protected $fillable = ['cedula', 'nombres', 'numero','sms','email','id'];
+    protected $fillable = ['cedula', 'nombres', 'numero','sms','email','id','created_at','updated_at',];
 
     public function scopeNombres($query, $nombres)
     {

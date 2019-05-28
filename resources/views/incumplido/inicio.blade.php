@@ -75,7 +75,15 @@
                             </div>
                         </div>
            
-
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title p-3 mb-2 bg-primary text-white">Gestiones</h5>
+                                      <br/><br/>
+                                   <center> <a href="{{ url('http://192.168.1.107/ventas/public/gestionesac') }}" class="btn btn-primary">ENTRAR</a></center>
+                                </div>
+                            </div>
+                        </div>
                     
 
                 </div>
